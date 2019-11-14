@@ -1,5 +1,5 @@
 [Project]
-FileName=Lab5.dev
+FileName=Project 1.dev
 Name=Project 1
 Type=1
 Ver=2
@@ -51,7 +51,7 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=Polymorphism.cpp
+FileName=mainApp.cpp
 CompileCpp=1
 Folder=
 Compile=1
