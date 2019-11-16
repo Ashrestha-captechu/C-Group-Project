@@ -8,12 +8,12 @@ Customer::Customer(){
 	
 }
 
-Customer::setCheck(double checking){
-	check = checking;
+void Customer::setCheck(double check){
+	checking = check;
 }
 
-Customer::setSave(double saving){
-	save = saving;
+void Customer::setSave(double save){
+	saving = save;
 }
 
 

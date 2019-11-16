@@ -9,7 +9,7 @@ class Admin: public Person{
 		
 	public:
 		Admin();//default constructor
-		Admin(string, string, string, string, string);
+		
 		
 		void print(); //displays all the informatioin of the Admin
 };

@@ -7,6 +7,7 @@ Admin::Admin(){
 }
 
 
+
 //displays all the information about the Admin 
 void Admin::print(){
 	cout <<"This "<<type<<" has this information:\n"

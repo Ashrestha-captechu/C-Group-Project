@@ -12,8 +12,8 @@ class Customer: public Person{
 	public:
 		Customer();
 		void print();//displayes all the information about the Customer
-		void setCheck;
-		void setSave;
+		void setCheck(double);
+		void setSave(double);
 	
 };
 #endif

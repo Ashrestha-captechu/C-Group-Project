@@ -20,6 +20,11 @@ class Person //main class
 		void setType(string); //shared function to determine type of class
 		void setUser(string); //shared function to set username 
 		void setPass(string); //shared function to set password
+		string getFirst(); //return first name
+		string getLast(); //return last name
+		string getId(); //return id
+		string getUser();//return username
+		string getPass();//return password
 		virtual void print() = 0 ; //virtual function to display information of the class. NOTE: the function is set to equalt zero making this a fully abstract class
 		
 };
