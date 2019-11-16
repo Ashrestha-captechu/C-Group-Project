@@ -58,3 +58,8 @@ string Person::getPass()
 {
 	return pass;
 }
+
+string Person::getType()
+{
+	return type;
+}

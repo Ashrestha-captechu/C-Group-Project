@@ -25,6 +25,7 @@ class Person //main class
 		string getId(); //return id
 		string getUser();//return username
 		string getPass();//return password
+		string getType();//return type
 		virtual void print() = 0 ; //virtual function to display information of the class. NOTE: the function is set to equalt zero making this a fully abstract class
 		
 };
