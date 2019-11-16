@@ -24,17 +24,16 @@ int createAdminMenu()
 }
 
 
-string retrieve_saved_file(Person* personPTR[100], Admin* adminPTR[100])
+int retrieve_saved_file(Person* personPTR[100], Admin* adminPTR[100], int personCounter, int adminCounter)
 {   string first;
 	string last;
 	string id;
 	string user;
 	string pass;
-	int personCounter;
-	int adminCounter;
-
+	personCounter = -1;
+	adminCounter = -1;
+	Admin* a = new Admin;
 	ifstream readData; //create an instance of ifstream
-	int count=0; //initialize count to zero
 	readData.open("Admin.txt"); //open Admin.txt file
 	while(!readData.eof()) //read while not End OF File
 	{
@@ -42,12 +41,19 @@ string retrieve_saved_file(Person* personPTR[100], Admin* adminPTR[100])
 				>>last
 				>>id
 				>>user
-				>>pass;				
-				count++; //increment the count
+				>>pass;
+		a->setName(first, last);
+		a->setId(id);
+		a->setUser(user);
+		a->setPass(pass);
+		personPTR[personCounter] = a;
+		adminPTR[adminCounter] = a;				
+		personCounter++; //increment the count
+		adminCounter++;
     }
 	readData.close(); //close the file
-	cout<<first<<" "<<last<<" "<<id<<" "<<user<<" "<<pass;
-	
+	cout<<first<<" "<<last<<" "<<id<<" "<<user<<" "<<pass<<endl;
+	return adminCounter;
 //	return count; //return the count to main to add to current number of clients 
 }
 
@@ -60,10 +66,11 @@ int main(int argc, char** argv) {
 	string fname,lname, id, user, pass; //variables to store name, id, username and password 
 	int admCounter = 0;
 	int persCounter = 0;
-	string savedData;
 	int option;
 	
-	retrieve_saved_file();
+	admCounter = retrieve_saved_file(personPTR, adminPTR, persCounter, admCounter);
+	persCounter = admCounter;
+	cout << admCounter << endl;
 	system("pause");
 	
 	
