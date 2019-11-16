@@ -34,27 +34,27 @@ void Person::setPass(string password)
 	pass = password;
 }
 
-Person.getFirst()
+string Person::getFirst()
 {
 	return first_name;
 }
 
-Person.getLast()
+string Person::getLast()
 {
 	return last_name;
 }
 
-Person.getId()
+string Person::getId()
 {
 	return id;
-}
+}     
 
-Person.getUser()
+string Person::getUser()
 {
 	return user;
 }
 
-Person.getPass()
+string Person::getPass()
 {
 	return pass;
 }
