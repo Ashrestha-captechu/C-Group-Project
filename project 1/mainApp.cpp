@@ -134,7 +134,7 @@ int createBanker(Person* personPTR[100], int persCounter)
 	bank->setUser(user);
 	bank->setPass(pass);
 	personPTR[persCounter] = bank;
-	persCounter++;
+	//persCounter++;
 	ofstream file;
 	file.open("Users.txt", ios::app);
 	file<<personPTR[persCounter]->getFirst()<<" "
@@ -218,6 +218,7 @@ int main(int argc, char** argv) {
 					switch (adminChoice)
 					{
 						case 1:persCounter = createBanker(personPTR, persCounter);
+							persCounter++;
 							break;
 						case 2: //view logs *under construction*
 							break;
@@ -233,6 +234,7 @@ int main(int argc, char** argv) {
 			{
 				//Banker menu
 				do{
+					bankerChoice = bankerMenu();
 				}while(bankerChoice != 3);
 			}
 			else if (personPTR[i]->getType() == "Customer")
