@@ -14,6 +14,8 @@ class Customer: public Person{
 		void print();//displayes all the information about the Customer
 		void setCheck(double);
 		void setSave(double);
+		double getCheck(double);
+		double getSave(double);
 	
 };
 #endif

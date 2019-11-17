@@ -46,7 +46,7 @@ int bankerMenu()
 		<<"***********\n\n"
 		<<"1. Transaction\n"
 		<<"2. View Logs\n"
-		<<"3. Create Customers"
+		<<"3. Create Customers\n"
 		<<"4. Exit\n"
 		<<"Enter Your Choice: ";
 	cin >>choice;
@@ -73,45 +73,77 @@ void save_to_file(Person* personPTR[100], int persCounter)
 	file.open("Users.txt", ios::app);
 	for (int i = 0; i < persCounter; i++)
 	{
-		file<<personPTR[i]->getFirst()<<" "
+		file<<personPTR[i]->getType()<<" "
+			<<personPTR[i]->getFirst()<<" "
 			<<personPTR[i]->getLast()<<" "
 			<<personPTR[i]->getId()<<" "
 			<<personPTR[i]->getUser()<<" "
 			<<personPTR[i]->getPass()<<"\n";
+			
 	}
 	file.close();
 }
 
 
 
-int retrieve_saved_file(Person* personPTR[100], int personCounter, int adminCounter)
-{   string first;
+int retrieve_saved_file(Person* personPTR[100], int personCounter)
+{   
+	string type;
+	string first;
 	string last;
 	string id;
 	string user;
 	string pass;
-	personCounter = -1;
-	adminCounter = -1;
-	Admin* a = new Admin;
+	double check;
+	double save;
+	personCounter = 0;
 	ifstream readData; //create an instance of ifstream
 	readData.open("Users.txt"); //open Admin.txt file
 	while(!readData.eof()) //read while not End OF File
 	{
-		readData>>first
+		readData>>type
+				>>first
 				>>last
 				>>id
 				>>user
 				>>pass;
-		a->setName(first, last);
-		a->setId(id);
-		a->setUser(user);
-		a->setPass(pass);
-		personPTR[personCounter] = a;
-		personCounter++; //increment the count
-		adminCounter++;
+		if (type == "Admin")
+		{
+			Admin* a = new Admin;
+			a->setName(first, last);
+			a->setId(id);
+			a->setUser(user);
+			a->setPass(pass);
+			personPTR[personCounter] = a;
+			personCounter++; //increment the count
+		}
+		else if (type == "Banker")
+		{
+			Banker* a = new Banker;
+			a->setName(first, last);
+			a->setId(id);
+			a->setUser(user);
+			a->setPass(pass);
+			personPTR[personCounter] = a;
+			personCounter++; //increment the count
+		}
+		else if (type == "Customer")
+		{
+			readData>>check>>save;
+			Customer* a = new Customer;
+			a->setName(first, last);
+			a->setId(id);
+			a->setUser(user);
+			a->setPass(pass);
+			a->setCheck(check);
+			a->setSave(save);
+			personPTR[personCounter] = a;
+			personCounter++; //increment the count
+		}
+
     }
 	readData.close(); //close the file
-	return adminCounter;
+	return personCounter;
 //	return count; //return the count to main to add to current number of clients 
 }
 
@@ -137,11 +169,52 @@ int createBanker(Person* personPTR[100], int persCounter)
 	//persCounter++;
 	ofstream file;
 	file.open("Users.txt", ios::app);
-	file<<personPTR[persCounter]->getFirst()<<" "
+	file<<personPTR[persCounter]->getType()<<" "
+		<<personPTR[persCounter]->getFirst()<<" "
 		<<personPTR[persCounter]->getLast()<<" "
 		<<personPTR[persCounter]->getId()<<" "
 		<<personPTR[persCounter]->getUser()<<" "
 		<<personPTR[persCounter]->getPass()<<"\n";
+	file.close();
+	return persCounter;
+	
+}
+int createCustomer(Person* personPTR[100], int persCounter)
+{
+	string fname, lname, id, user, pass;
+	double check, save;
+	
+	cout<<"Enter first and last names: ";
+	cin >>fname>>lname;
+	cout<<"Enter id: ";
+	cin >>id;
+	cout<<"Enter username: ";
+	cin >>user;
+	cout<<"Enter Password: ";
+	cin >>pass;
+	cout<<"Enter Checking Balance: ";
+	cin >>check;
+	cout<"Enter Saving Balance: ";
+	cin >>save;
+				
+	Customer* custom = new Customer;
+	custom->setName(fname,lname);
+	custom->setId(id);
+	custom->setUser(user);
+	custom->setPass(pass);
+	custom->setCheck(check);
+	custom->setSave(save);
+	personPTR[persCounter] = custom;
+	ofstream file;
+	file.open("Users.txt", ios::app);
+	file<<personPTR[persCounter]->getType()<<" "
+		<<personPTR[persCounter]->getFirst()<<" "
+		<<personPTR[persCounter]->getLast()<<" "
+		<<personPTR[persCounter]->getId()<<" "
+		<<personPTR[persCounter]->getUser()<<" "
+		<<personPTR[persCounter]->getPass()<<" "
+		<<personPTR[persCounter]->getCheck<<" "
+		<<personPTR[persCounter]->getSave<<"\n"
 	file.close();
 	return persCounter;
 	
@@ -154,17 +227,16 @@ int main(int argc, char** argv) {
 	Person* personPTR[100]; //array of poiters of type Person
 	
 	string fname,lname, id, user, pass; //variables to store name, id, username and password 
-	int admCounter = 0;
 	int persCounter = 0;
 
 	int option;
 	int adminChoice, bankerChoice, customerChoice; //stores user input from menu
 	
-	admCounter = retrieve_saved_file(personPTR, persCounter, admCounter);
-	persCounter = admCounter;
+	persCounter = retrieve_saved_file(personPTR, persCounter);
+	
 		
 	bool NO_ADMIN = false;
-	if (admCounter == 0)
+	if (persCounter == 0)
 		NO_ADMIN = true;
 	
 	if (NO_ADMIN == true)
@@ -189,7 +261,6 @@ int main(int argc, char** argv) {
 				personPTR[persCounter] = adm;
 				NO_ADMIN = false;
 				persCounter++;
-				admCounter++;				
 			}
 			if (option == 2)
 			//save to file
@@ -204,10 +275,11 @@ int main(int argc, char** argv) {
 	cin >>user;
 	cout<<"Enter Password: ";
 	cin>>pass;
-		
+	
 	for (int i= 0; i < persCounter; i++)
 	{
 		if (personPTR[i]->getUser() == user && personPTR[i]->getPass() == pass)
+		
 		{
 			cout<<"Access granted!\n";
 			if (personPTR[i]->getType() == "Admin")
@@ -222,12 +294,11 @@ int main(int argc, char** argv) {
 							break;
 						case 2: //view logs *under construction*
 							break;
-						case 3: 
+						case 3: cout<<"Goodbye!"<<endl;//exit
 							break;
 						default: cout<<"Invalid choice";
 					}
 				}while(adminChoice != 3);
-				
 			}
 			
 			else if (personPTR[i]->getType() == "Banker")
@@ -235,24 +306,40 @@ int main(int argc, char** argv) {
 				//Banker menu
 				do{
 					bankerChoice = bankerMenu();
-				}while(bankerChoice != 3);
+					switch (bankerChoice)
+					{
+						case 1:	//transaction						
+							break;
+						case 2: //view logs
+							break;
+						case 3: //create customers
+							break;
+						case 4: cout<<"Goodbye!"<<endl; //exit
+							break;
+						default: cout<<"Invalid choice";
+					}					
+				}while(bankerChoice != 4);
 			}
 			else if (personPTR[i]->getType() == "Customer")
 			{
 				//customer menu
 				do{
+					customerChoice = customerMenu();
 				}while(customerChoice != 3);
 			}
 			break; //exit out of the loop
 		}
-		else
+		else if (personPTR[i]->getUser() != user || personPTR[i]->getPass() != pass) //if the user or password is incorrect, displays message
 		{
 			cout<<"Wrong Username and/or Password"<<endl;
 		}
 		
 	}
 	
-	//save to file
+	for (int i =0; i < persCounter-1; i++)
+	{
+		cout<<personPTR[i]->print();
+	}
 	
 	
 	

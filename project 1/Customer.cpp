@@ -16,11 +16,22 @@ void Customer::setSave(double save){
 	saving = save;
 }
 
+double Customer::getCheck()
+{
+	return checking;
+}
+
+double Customer::getSave()
+{
+	return saving;
+}
 
 //displayes all the  information about the Customer
 void Customer::print(){
 	cout <<"This "<<type<<" has this information:\n"
 		<<"Name: "<<first_name<<" "<<last_name<<"\n"
 		<<"Id: "<<id<<"\n"
-		<<"Username: "<<user<<endl;
+		<<"Username: "<<user"\n"
+		<<"Checking: $"<<checking"\n"
+		<<"Saving: $"<<saving<<endl;
 }
