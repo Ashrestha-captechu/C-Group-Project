@@ -3,3 +3,4 @@ Banker adarsh shrestha banker1 banker password
 Customer jon doe customer1 customer password 100 1000
 Customer jon doe customer2 custr passwod 100 1000
 Banker adarsh shrestha banker2 baanker passwaord
+Customer Tom Jones customer1 customer secret 20 30

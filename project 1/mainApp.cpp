@@ -182,7 +182,8 @@ int createBanker(Person* personPTR[100], int persCounter)
 int createCustomer(Person* personPTR[100], int persCounter)
 {
 	string fname, lname, id, user, pass;
-	double check, save;
+	double check = 0.0;
+	double save = 0.0;
 	
 	cout<<"Enter first and last names: ";
 	cin >>fname>>lname;
@@ -194,7 +195,7 @@ int createCustomer(Person* personPTR[100], int persCounter)
 	cin >>pass;
 	cout<<"Enter Checking Balance: ";
 	cin >>check;
-	cout<"Enter Saving Balance: ";
+	cout<<"Enter Saving Balance: ";
 	cin >>save;
 				
 	Customer* custom = new Customer;
@@ -213,8 +214,9 @@ int createCustomer(Person* personPTR[100], int persCounter)
 		<<personPTR[persCounter]->getId()<<" "
 		<<personPTR[persCounter]->getUser()<<" "
 		<<personPTR[persCounter]->getPass()<<" "
-		<<personPTR[persCounter]->getCheck<<" "
-		<<personPTR[persCounter]->getSave<<"\n"
+		<<custom->getCheck()<<" "
+		<<custom->getSave()<<"\n";
+		
 	file.close();
 	return persCounter;
 	
@@ -312,7 +314,8 @@ int main(int argc, char** argv) {
 							break;
 						case 2: //view logs
 							break;
-						case 3: //create customers
+						case 3: persCounter = createCustomer(personPTR, persCounter);//create customers
+						persCounter++;
 							break;
 						case 4: cout<<"Goodbye!"<<endl; //exit
 							break;
@@ -336,10 +339,6 @@ int main(int argc, char** argv) {
 		
 	}
 	
-	for (int i =0; i < persCounter-1; i++)
-	{
-		cout<<personPTR[i]->print();
-	}
 	
 	
 	

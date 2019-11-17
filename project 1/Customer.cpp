@@ -31,7 +31,7 @@ void Customer::print(){
 	cout <<"This "<<type<<" has this information:\n"
 		<<"Name: "<<first_name<<" "<<last_name<<"\n"
 		<<"Id: "<<id<<"\n"
-		<<"Username: "<<user"\n"
-		<<"Checking: $"<<checking"\n"
+		<<"Username: "<<user<<"\n"
+		<<"Checking: $"<<checking<<"\n"
 		<<"Saving: $"<<saving<<endl;
 }
