@@ -6,6 +6,8 @@
 #include <fstream>
 #include <stddef.h>
 
+#include<typeinfo>
+
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
@@ -222,6 +224,25 @@ int createCustomer(Person* personPTR[100], int persCounter)
 	
 }
 
+void transaction(Person* personPTR[100], int persCounter)
+{
+	string id;
+	
+	cout<<"Enter ID: ";
+	cin >>id;
+	for (int i=0; i<persCounter; i++)
+	{
+		if(personPTR[i]->getId() == id)
+		{
+		 
+			cout<<personPTR[i]->getFirst()<<" "<<personPTR[i]->getLast()<<" "<<personPTR[i]->getId()<<"\n";
+			//	<<"Checking: $"<<custom->getCheck()<<"\n"
+			//	<<"Saving: $"<<custom->getSave()<<endl;
+				system("pause");	
+		}
+	}
+	
+}
 
 
 int main(int argc, char** argv) {
@@ -310,7 +331,7 @@ int main(int argc, char** argv) {
 					bankerChoice = bankerMenu();
 					switch (bankerChoice)
 					{
-						case 1:	//transaction						
+						case 1:	transaction(personPTR, persCounter);//transaction						
 							break;
 						case 2: //view logs
 							break;
